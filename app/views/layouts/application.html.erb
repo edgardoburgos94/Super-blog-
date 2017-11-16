@@ -22,7 +22,10 @@
           <% if user_signed_in? %>
             <p>Bienvenido <%=current_user.email%></p>
             <li class="nav-item">
-              <%= link_to " Cerrar sesión ", destroy_user_session_path, method: :delete, data: {confirm: "¿Estás seguro?"} %> 
+              <%= link_to " Nuevo post ", new_post_path %>
+            </li>
+            <li class="nav-item">
+              <%= link_to " Cerrar sesión ", destroy_user_session_path, method: :delete, data: {confirm: "¿Estás seguro?"} %>
             </li>
 
           <%else%>
@@ -38,9 +41,11 @@
       </div>
       </div>
     </nav>
+    <div class="container">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </div>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
 </html>
