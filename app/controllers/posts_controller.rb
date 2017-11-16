@@ -8,8 +8,24 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  def new 
+  def new
     @post = Post.new
+  end
+
+  def create
+    @post = Post.create(post_params)
+    if @post.save
+      redirect_to posts_path
+    else
+      render :new
+    end
+  end
+
+  private
+  def post_params
+    params.require(:post).permit(:title, :content, :author)
+    # @params[:author]= current_user.email
+    # puts "los parametros son #{@params}"
   end
 
 end
