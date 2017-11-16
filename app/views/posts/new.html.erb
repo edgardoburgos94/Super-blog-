@@ -1,6 +1,11 @@
 <% if user_signed_in? %>
 <div class="container">
   <h1>Nuevo Post</h1>
+  <% if @post.errors.any? %>
+    <% @post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  <% end %>
   <%= form_for @post do |f| %>
     <div>
       <b><%= f.label "Título"  %></b><br>
