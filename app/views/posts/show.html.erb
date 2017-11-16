@@ -1,0 +1,7 @@
+<div class="container">
+  <%= link_to "Volver", posts_path %>
+  <h1><%=@post.title %></h1>
+  <p>Publicado por <b><%= @post.author %></b> alrededor de las <b><%= @post.created_at %></b></p>
+  <p><%= @post.content %></p>
+
+</div>

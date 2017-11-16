@@ -1,1 +1,13 @@
-<h1>HOLAAAAA!!!</h1>
+
+<div class="container">
+  <% @posts.each do |post| %>
+  <div>
+    <h1><%=link_to post.title, post_path(post) %></h1>
+    <p>Publicado por <b><%= post.author %></b> alrededor de las <b><%= post.created_at %></b></p>
+    <p><%= post.content[0..150] %>...</p>
+    <br><br>
+  </div>
+  <%end%>
+
+
+</div>
