@@ -5,12 +5,14 @@
     <h1><%=link_to post.title, post_path(post) %></h1>
     <p>Publicado por <b><%= post.author %></b> alrededor de las <b><%= post.created_at %></b></p>
     <p><%= post.content[0..150] %>...</p>
-    <% if post.author == current_user.email %>
-      <%=link_to "Editar", edit_post_path(post) %>
-      <%=link_to "Eliminar", post, method: :delete, data: { confirm: "¿Estás seguro de eliminar este producto?" } %>
+    <% if user_signed_in? %>
+      <% if post.author == current_user.email %>
+        <%=link_to "Editar", edit_post_path(post) %>
+        <%=link_to "Eliminar", post, method: :delete, data: { confirm: "¿Estás seguro de eliminar este producto?" } %>
+      <%end%>
+      <br><br>
+    </div>
     <%end%>
-    <br><br>
-  </div>
   <%end%>
 
 
