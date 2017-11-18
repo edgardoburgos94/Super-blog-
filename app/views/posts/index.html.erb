@@ -1,10 +1,9 @@
-
 <div class="container">
   <% @posts.each do |post| %>
   <div>
     <h1><%=link_to post.title, post_path(post) %></h1>
     <p>Publicado por <b><%= post.author %></b> alrededor de las <b><%= post.created_at %></b></p>
-    <p><%= post.content[0..150] %>...</p>
+    <p><%= post.content[0..250] %>...</p>
     <% if user_signed_in? %>
       <% if post.author == current_user.email %>
         <%=link_to "Editar", edit_post_path(post) %>
@@ -14,6 +13,5 @@
     </div>
     <%end%>
   <%end%>
-
 
 </div>

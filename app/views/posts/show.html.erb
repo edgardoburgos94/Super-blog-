@@ -4,16 +4,19 @@
   <p>Publicado por <b><%= @post.author %></b> alrededor de las <b><%= @post.created_at %></b></p>
   <p><%= @post.content %></p>
 
-  <% if user_signed_in? %>
-    <h4><b>Nuevo comentario</b></h4>
-    <%= form_for @post do |f| %>
-      <div>
-        <%= f.text_area :content %>
-      </div>
-      <div>
-        <%= f.submit %>
-      </div>
-    <%end %>
-  <%end %>
+<h2>Comentarios</h2>
+<div class="comment_section">
+  <% if @comments.empty?%>
+    <p>No hay comentarios en este post</p>
+    <%else%>
+  <% @comments.each do |commentario| %>
+  <div class ="comentarios">
+    <p class ="comentador"><b ><%=commentario.author%></b> comentó:</p>
+    <p class= "comentario"><%= commentario.comment %></p>
+    </div>
+    <%end%>
+  <%end%>
+</div>
+
 
 </div>
