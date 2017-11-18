@@ -1,7 +1,19 @@
 <div class="container">
-  <%= link_to "Volver", posts_path %>
+  <%= link_to "Volver", posts_path, class: "claseVolver"%>
   <h1><%=@post.title %></h1>
   <p>Publicado por <b><%= @post.author %></b> alrededor de las <b><%= @post.created_at %></b></p>
   <p><%= @post.content %></p>
+
+  <% if user_signed_in? %>
+    <h4><b>Nuevo comentario</b></h4>
+    <%= form_for @post do |f| %>
+      <div>
+        <%= f.text_area :content %>
+      </div>
+      <div>
+        <%= f.submit %>
+      </div>
+    <%end %>
+  <%end %>
 
 </div>
