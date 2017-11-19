@@ -1,21 +1,28 @@
 <div class="container">
-  <%= link_to "Volver", posts_path, class: "claseVolver"%>
-  <h1><%=@post.title %></h1>
-  <p>Publicado por <b><%= @post.author %></b> alrededor de las <b><%= @post.created_at %></b></p>
-  <p><%= @post.content %></p>
+  <%= link_to "Volver", posts_path, class: "link"%>
+  <div class="contenedor">
 
-<h2>Comentarios</h2>
-<div class="comment_section">
-  <% if @comments.empty?%>
-    <p>No hay comentarios en este post</p>
-    <%else%>
-  <% @comments.each do |commentario| %>
-  <div class ="comentarios">
-    <p class ="comentador"><b ><%=commentario.author%></b> comentó:</p>
-    <p class= "comentario"><%= commentario.comment %></p>
-    </div>
-    <%end%>
-  <%end%>
+    <h1><%=@post.title %></h1>
+    <p class = "info">Publicado por <b><%= @post.author %></b> alrededor de las <b><%= @post.created_at %></b></p>
+    <p><%= @post.content %></p>
+  </div>
+
+
+
+    <h2>Comentarios</h2>
+    <div class="comment_section">
+      <% if @comments.empty?%>
+        <p>No hay comentarios en este post</p>
+        <%else%>
+      <% @comments.each do |commentario| %>
+        <div class="comentario">
+        <p ><b ><%=commentario.author%></b> comentó:</p>
+        <p ><%= commentario.comment %></p>
+        </div>
+        <%end%>
+      <%end%>
+
+
 </div>
 
 

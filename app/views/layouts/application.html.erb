@@ -12,7 +12,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-      <a class="navbar-brand" href="/posts">Super blog</a>
+      <a class="navbar-brand" href="/posts"><b>Super blog</b></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -20,21 +20,21 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <% if user_signed_in? %>
-            <p>Bienvenido <%=current_user.email%></p>
+
             <li class="nav-item">
-              <%= link_to " Nuevo post ", new_post_path %>
+              <%= link_to " Nuevo post ", new_post_path, class: "link" %>
             </li>
             <li class="nav-item">
-              <%= link_to " Cerrar sesión ", destroy_user_session_path, method: :delete, data: {confirm: "¿Estás seguro?"} %>
+              <%= link_to " Cerrar sesión ", destroy_user_session_path, method: :delete, data: {confirm: "¿Estás seguro?"}, class: "link"  %>
             </li>
 
           <%else%>
             <li class="nav-item active">
-              <%= link_to " Ingresar  ", new_user_session_path %>
+              <%= link_to " Ingresar  ", new_user_session_path, class: "link"  %>
             </li>
 
             <li class="nav-item">
-              <%= link_to " Registrarse  ", new_user_registration_path %>
+              <%= link_to " Registrarse  ", new_user_registration_path, class: "link"  %>
             </li>
           <%end%>
         </ul>
@@ -42,8 +42,12 @@
       </div>
     </nav>
     <div class="container">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <% if  not notice== nil%>
+      <p class="alert alert-success alert-dismissible fade show"><%= notice %></p>
+      <%end%>
+      <% if not alert== nil%>
+      <p class="alert alert-danger alert-dismissible fade show"><%= alert %></p>
+      <%end%>
     </div>
 
     <%= yield %>
