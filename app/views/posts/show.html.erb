@@ -9,18 +9,36 @@
 
 
 
-    <h2>Comentarios</h2>
-    <div class="comment_section">
-      <% if @comments.empty?%>
-        <p>No hay comentarios en este post</p>
-        <%else%>
-      <% @comments.each do |commentario| %>
-        <div class="comentario">
-        <p ><b ><%=commentario.author%></b> comentó:</p>
-        <p ><%= commentario.comment %></p>
-        </div>
-        <%end%>
+  <h2>Comentarios</h2>
+  <div class="comment_section">
+    <% if @comments.empty?%>
+      <p>No hay comentarios en este post</p>
+      <%else%>
+    <% @comments.each do |commentario| %>
+      <div class="comentario">
+      <p ><b ><%=commentario.author%></b> comentó:</p>
+      <p ><%= commentario.comment %></p>
+      <% if commentario.author == current_user.email %>
+        <p><%= link_to 'Eliminar Comentario', post_comment_path(@post, commentario), :method => :delete, :data => { :confirm => '¿Estás seguro?' } %> </p>
       <%end%>
+
+      </div>
+      <%end%>
+    <%end%>
+
+    <% if user_signed_in? %>
+    <h2>Agrega tu comentario</h2>
+    <%= form_for([@post, @post.comments.build]) do |f| %>
+      <div>
+        <%= f.text_area :comment, class: "cuerpocoment"  %>
+      </div>
+      <%= f.hidden_field :author, :value => current_user.email %>
+      <div>
+        <%= f.submit  'Comentar', class: "btn btn-primary"  %>
+      </div>
+      <% end %>
+    <% end %>
+
 
 
 </div>
