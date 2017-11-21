@@ -18,8 +18,10 @@
       <div class="comentario">
       <p ><b ><%=commentario.author%></b> comentó:</p>
       <p ><%= commentario.comment %></p>
-      <% if commentario.author == current_user.email %>
-        <p><%= link_to 'Eliminar Comentario', post_comment_path(@post, commentario), :method => :delete, :data => { :confirm => '¿Estás seguro?' } %> </p>
+      <% if user_signed_in? %>
+        <% if (commentario.author == current_user.email) || @post.author == current_user.email %>
+          <p><%= link_to 'Eliminar Comentario', post_comment_path(@post, commentario), :method => :delete, :data => { :confirm => '¿Estás seguro?' } %> </p>
+        <%end%>
       <%end%>
 
       </div>
