@@ -1,12 +1,14 @@
 <div class="container">
   <%= link_to "Volver", posts_path, class: "link"%>
   <div class="contenedor">
+    <%renderer = Redcarpet::Render::HTML.new(no_links: true, hard_wrap: true)%>
+    <%markdown = Redcarpet::Markdown.new(renderer, extensions = {})%>
+    
 
     <h1><%=@post.title %></h1>
     <p class = "info">Publicado por <b><%= @post.author %></b> alrededor de las <b><%= @post.created_at %></b></p>
-    <p><%= @post.content %></p>
+    <%=markdown.render(@post.content).html_safe%>
   </div>
-
 
 
   <h2>Comentarios</h2>
