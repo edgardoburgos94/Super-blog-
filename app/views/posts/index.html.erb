@@ -4,9 +4,16 @@
   <div class = "contenedor">
     <h1><%=link_to post.title, post_path(post) %></h1>
     <% time_diff_components = Time.diff(post.created_at, Time.now) %>
-
-    <p class = "info">Publicado por <b><%= post.author %></b> alrededor de las <b> <%=time_ago_in_words(Time.now + 2.months + 5.hours + 6.minutes + 7.seconds) %></b></p>
-
+    <%aproximacion = distance_of_time_in_words(Time.now, Time.now + time_diff_components[:year].years + time_diff_components[:month].months + time_diff_components[:day].days + time_diff_components[:hour].hours + time_diff_components[:minute].minutes)%>
+    <% aproximacion.gsub! 'day', 'día' %>
+    <% aproximacion.gsub! 'months', 'meses' %>
+    <% aproximacion.gsub! 'hour', 'hora' %>
+    <% aproximacion.gsub! 'minute', 'minuto' %>
+    <% aproximacion.gsub! 'and', 'y' %>
+    <% aproximacion.gsub! 'less', 'menos' %>
+    <% aproximacion.gsub! 'than', 'de' %>
+    <% aproximacion.gsub! 'second', 'segundo' %>
+    <p class = "info">Publicado por <b><%= post.author %></b> hace aproximadamente <b> <%=aproximacion %></b></p>
     <%renderer = Redcarpet::Render::HTML.new(no_links: true, hard_wrap: true)%>
     <%markdown = Redcarpet::Markdown.new(renderer, extensions = {})%>
     <%=markdown.render(post.content[0..250]).html_safe%>

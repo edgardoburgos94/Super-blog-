@@ -3,10 +3,20 @@
   <div class="contenedor">
     <%renderer = Redcarpet::Render::HTML.new(no_links: true, hard_wrap: true)%>
     <%markdown = Redcarpet::Markdown.new(renderer, extensions = {})%>
-    
+
 
     <h1><%=@post.title %></h1>
-    <p class = "info">Publicado por <b><%= @post.author %></b> alrededor de las <b><%= @post.created_at %></b></p>
+    <% time_diff_components = Time.diff(@post.created_at, Time.now) %>
+    <%aproximacion = distance_of_time_in_words(Time.now, Time.now + time_diff_components[:year].years + time_diff_components[:month].months + time_diff_components[:day].days + time_diff_components[:hour].hours + time_diff_components[:minute].minutes)%>
+    <% aproximacion.gsub! 'day', 'día' %>
+    <% aproximacion.gsub! 'months', 'meses' %>
+    <% aproximacion.gsub! 'hour', 'hora' %>
+    <% aproximacion.gsub! 'minute', 'minuto' %>
+    <% aproximacion.gsub! 'and', 'y' %>
+    <% aproximacion.gsub! 'less', 'menos' %>
+    <% aproximacion.gsub! 'than', 'de' %>
+    <% aproximacion.gsub! 'second', 'segundo' %>
+    <p class = "info">Publicado por <b><%= @post.author %></b> hace aproximadamente <b> <%=aproximacion %></b></p>
     <%=markdown.render(@post.content).html_safe%>
   </div>
 
@@ -18,8 +28,18 @@
       <%else%>
     <% @comments.each do |commentario| %>
       <div class="comentario">
-      <p ><b ><%=commentario.author%></b> comentó:</p>
-      <p ><%= commentario.comment %></p>
+      <% time_diff_components = Time.diff(commentario.created_at, Time.now) %>
+      <%aproximacion = distance_of_time_in_words(Time.now, Time.now + time_diff_components[:year].years + time_diff_components[:month].months + time_diff_components[:day].days + time_diff_components[:hour].hours + time_diff_components[:minute].minutes)%>
+      <% aproximacion.gsub! 'day', 'día' %>
+      <% aproximacion.gsub! 'months', 'meses' %>
+      <% aproximacion.gsub! 'hour', 'hora' %>
+      <% aproximacion.gsub! 'minute', 'minuto' %>
+      <% aproximacion.gsub! 'and', 'y' %>
+      <% aproximacion.gsub! 'less', 'menos' %>
+      <% aproximacion.gsub! 'than', 'de' %>
+      <% aproximacion.gsub! 'second', 'segundo' %>
+      <p>Publicado por <b><%=commentario.author%></b> hace aproximadamente <b> <%=aproximacion %></b></p>
+      <%=markdown.render(commentario.comment).html_safe%>
       <% if user_signed_in? %>
         <% if (commentario.author == current_user.email) || @post.author == current_user.email %>
           <p><%= link_to 'Eliminar Comentario', post_comment_path(@post, commentario), :method => :delete, :data => { :confirm => '¿Estás seguro?' } %> </p>
